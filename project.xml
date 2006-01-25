@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+  <extend>${base.project.dir}/base-dependencies.xml</extend>
+  <pomVersion>3</pomVersion>
+  <name>SMS Block</name>
+  <groupId>bundles</groupId>
+  <artifactId>com.idega.block.sms</artifactId>
+  <currentVersion>1.0-SNAPSHOT</currentVersion>
+  <inceptionYear>2005</inceptionYear>
+  <shortDescription>Module for sending SMS messages to mobile telephones</shortDescription>
+  <developers>
+    <developer>
+      <name>Tryggvi Larusson</name>
+      <id>tryggvil</id>
+      <email>tryggvi@idega.is</email>
+      <organization>idega software</organization>
+    </developer>
+  </developers>
+  <dependencies>
+    <dependency>
+      <groupId>bundles</groupId>
+      <artifactId>com.idega.core</artifactId>
+      <!--version>3.0.6</version-->
+      <version>SNAPSHOT</version>
+      <type>jar</type>
+      <url>http://www.idega.com/</url>
+      <properties>
+          <eclipse.dependency>${idegaweb.project.source.dependent}</eclipse.dependency>
+      </properties>
+    </dependency>
+  </dependencies>
+</project>
+
