@@ -3,4 +3,4 @@ login=Logga in
 password=L\u00F6senord
 personalId=Personnummer
 type_in_your_one_time_password=Skriv in ditt eng\u00E5ngsl\u00F6senord
-user_sms_message=Ditt eng\u00E5ngsl\u00F6senord \u00E4r\: {0}
+user_sms_message=Ditt engangslosenord ar\: {0}
