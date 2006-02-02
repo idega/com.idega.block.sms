@@ -1,5 +1,5 @@
 /*
- * $Id: ASPSMSProvider.java,v 1.1 2006/01/25 14:27:54 tryggvil Exp $ Created on 30.11.2005
+ * $Id: ASPSMSProvider.java,v 1.2 2006/02/02 13:15:41 tryggvil Exp $ Created on 30.11.2005
  * in project com.idega.block.sms
  * 
  * Copyright (C) 2005 Idega Software hf. All Rights Reserved.
@@ -26,10 +26,10 @@ import com.idega.idegaweb.IWMainApplication;
  * <code>com.aspsms.password</code> and <code>com.aspsms.originator</code>.
  * 
  * </p>
- * Last modified: $Date: 2006/01/25 14:27:54 $ by $Author: tryggvil $
+ * Last modified: $Date: 2006/02/02 13:15:41 $ by $Author: tryggvil $
  * 
  * @author <a href="mailto:tryggvil@idega.com">tryggvil</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class ASPSMSProvider implements SMSProvider {
 
@@ -176,6 +176,9 @@ public class ASPSMSProvider implements SMSProvider {
 	 * @return Returns the password.
 	 */
 	public String getPassword() {
+		if(password==null){
+			throw new RuntimeException("No password set");
+		}
 		return password;
 	}
 
@@ -192,6 +195,9 @@ public class ASPSMSProvider implements SMSProvider {
 	 * @return Returns the userkey.
 	 */
 	public String getUserkey() {
+		if(userkey==null){
+			throw new RuntimeException("No userkey set");
+		}
 		return userkey;
 	}
 

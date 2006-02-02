@@ -1,10 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pxml>
   <map>
-     <key>
+    <key>
       <name>iw_bundle_identifier</name>
       <type>java.lang.String</type>
       <value>com.idega.block.sms</value>
+    </key>
+    <key>
+      <name>iw_components</name>
+      <value>
+        <map>
+          <key>
+            <name>com.idega.block.sms.presentation.SMSAuthenticator</name>
+            <value>
+              <map>
+                <key>
+                  <name>component_property_file</name>
+                  <type>java.lang.String</type>
+                  <value>com.idega.block.sms.presentation.SMSAuthenticator.pxml</value>
+                </key>
+              </map>
+            </value>
+            <type>map</type>
+          </key>
+        </map>
+      </value>
+      <type>map</type>
     </key>
   </map>
 </pxml>

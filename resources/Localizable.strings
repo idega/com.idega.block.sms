@@ -1,0 +1,6 @@
+generate_onetime_password=generate_onetime_password
+login=login
+password=password
+personalId=personalId
+type_in_your_one_time_password=type_in_your_one_time_password
+user_sms_message=Your one-time-password is\: {0}
