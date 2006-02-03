@@ -1,5 +1,5 @@
 /*
- * $Id: SMSAuthenticator.java,v 1.2 2006/02/02 13:15:41 tryggvil Exp $
+ * $Id: SMSAuthenticator.java,v 1.3 2006/02/03 01:31:49 tryggvil Exp $
  * Created on 23.1.2006 in project com.idega.block.sms
  *
  * Copyright (C) 2006 Idega Software hf. All Rights Reserved.
@@ -13,19 +13,21 @@ import java.io.IOException;
 import javax.faces.component.UIComponent;
 import javax.faces.component.html.HtmlCommandButton;
 import javax.faces.component.html.HtmlForm;
+import javax.faces.component.html.HtmlInputSecret;
 import javax.faces.component.html.HtmlInputText;
 import javax.faces.component.html.HtmlMessages;
 import javax.faces.component.html.HtmlOutputText;
 import javax.faces.context.FacesContext;
+import javax.faces.el.ValueBinding;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
 import javax.faces.validator.LengthValidator;
 import javax.faces.validator.Validator;
+import org.apache.myfaces.custom.savestate.UISaveState;
 import com.idega.block.sms.business.PersonalIdValidator;
 import com.idega.block.sms.business.SMSAuthenticationBean;
 import com.idega.idegaweb.IWBundle;
-import com.idega.idegaweb.IWResourceBundle;
 import com.idega.presentation.IWContext;
 import com.idega.presentation.Layer;
 import com.idega.presentation.Page;
@@ -40,10 +42,10 @@ import com.idega.util.FacesUtil;
  * by SMS to the users registered mobile phone number and authenticating
  * the user into the system if it is valid.
  * </p>
- *  Last modified: $Date: 2006/02/02 13:15:41 $ by $Author: tryggvil $
+ *  Last modified: $Date: 2006/02/03 01:31:49 $ by $Author: tryggvil $
  * 
  * @author <a href="mailto:tryggvil@idega.com">Tryggvi Larusson</a>
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 public class SMSAuthenticator extends PresentationObjectTransitional implements ActionListener {
 
@@ -58,7 +60,8 @@ public class SMSAuthenticator extends PresentationObjectTransitional implements 
 	
 	private String showView=VIEW_ENTER_PERSONALID;
 	private String redirectUrlOnLogon=null;
-	
+	String formItemStyleClass="formitem";
+	String buttonStyleClass="button";
 	
 	public String getRedirectUrlOnLogon() {
 		return redirectUrlOnLogon;
@@ -86,7 +89,7 @@ public class SMSAuthenticator extends PresentationObjectTransitional implements 
 		IWContext iwc = IWContext.getIWContext(context);
 		
 		IWBundle iwb = iwc.getIWMainApplication().getBundle(IW_BUNDLE_IDENTIFIER);
-		IWResourceBundle iwrb = iwb.getResourceBundle(iwc);
+		//IWResourceBundle iwrb = iwb.getResourceBundle(iwc);
 		UIComponent container = this;
 
 		Layer enterPidContainer = new Layer();
@@ -97,6 +100,13 @@ public class SMSAuthenticator extends PresentationObjectTransitional implements 
 		enterPidContainer.getChildren().add(form);
 		
 		container = form;
+		
+		//save the state of the bean because it is request bound
+		UISaveState beanSaveState = new UISaveState();
+		ValueBinding binding = context.getApplication().createValueBinding("#{"+SMSAuthenticationBean.BEAN_ID+"}");
+		beanSaveState.setId("smsAuthenticationBeanState");
+		beanSaveState.setValueBinding("value",binding);
+		form.getChildren().add(beanSaveState);
 		
 		//if(includeForm()){
 		//}
@@ -115,6 +125,7 @@ public class SMSAuthenticator extends PresentationObjectTransitional implements 
 		personalIdInput.setValueBinding("value",context.getApplication().createValueBinding("#{"+SMSAuthenticationBean.BEAN_ID+".userPersonalId}"));
 		personalIdLabel.setFor(personalIdInput);
 		Layer personalIdDiv = new Layer();
+		personalIdDiv.setStyleClass(formItemStyleClass);
 		container.getChildren().add(personalIdDiv);
 		personalIdDiv.getChildren().add(personalIdLabel);
 		personalIdDiv.getChildren().add(personalIdInput);
@@ -123,16 +134,18 @@ public class SMSAuthenticator extends PresentationObjectTransitional implements 
 		HtmlOutputText passwordText = iwb.getLocalizedText("password");
 		
 		passwordLabel.getChildren().add(passwordText);
-		HtmlInputText passwordInput = new HtmlInputText();
+		HtmlInputSecret passwordInput = new HtmlInputSecret();
 		passwordInput.setValueBinding("value",context.getApplication().createValueBinding("#{"+SMSAuthenticationBean.BEAN_ID+".password}"));
 		
 		passwordLabel.setFor(passwordInput);
 		Layer passwordDiv = new Layer();
+		passwordDiv.setStyleClass(formItemStyleClass);
 		container.getChildren().add(passwordDiv);
 		passwordDiv.getChildren().add(passwordLabel);
 		passwordDiv.getChildren().add(passwordInput);
 		
 		HtmlCommandButton button = new HtmlCommandButton();
+		button.setStyleClass(buttonStyleClass);
 		button.setId(ACTION_GENERATE_PASSWORD);
 		button.setAction(context.getApplication().createMethodBinding("#{"+SMSAuthenticationBean.BEAN_ID+".generateOneTimePassword}",null));
 		button.addActionListener(this);
@@ -149,6 +162,13 @@ public class SMSAuthenticator extends PresentationObjectTransitional implements 
 		enterGeneratedPasswordContainer.getChildren().add(form2);
 		container =form2;
 		
+		//save the state of the bean because it is request bound
+		UISaveState beanSaveState2 = new UISaveState();
+		ValueBinding binding2 = context.getApplication().createValueBinding("#{"+SMSAuthenticationBean.BEAN_ID+"}");
+		beanSaveState2.setId("smsAuthenticationBeanState");
+		beanSaveState2.setValueBinding("value",binding2);
+		form2.getChildren().add(beanSaveState2);
+		
 		Label generatedPasswordLabel = new Label();
 		HtmlOutputText generatedPasswordText = iwb.getLocalizedText("type_in_your_one_time_password");
 		
@@ -158,11 +178,13 @@ public class SMSAuthenticator extends PresentationObjectTransitional implements 
 		
 		passwordLabel.setFor(generatedPasswordInput);
 		Layer generatedPasswordDiv = new Layer();
+		generatedPasswordDiv.setStyleClass(formItemStyleClass);
 		container.getChildren().add(generatedPasswordDiv);
 		generatedPasswordDiv.getChildren().add(generatedPasswordLabel);
 		generatedPasswordDiv.getChildren().add(generatedPasswordInput);
 		
 		HtmlCommandButton loginButton = new HtmlCommandButton();
+		loginButton.setStyle(buttonStyleClass);
 		loginButton.setId(ACTION_LOGIN);
 		//loginButton.setAction(context.getApplication().createMethodBinding("#{"+SMSAuthenticationBean.BEAN_ID+".validateGeneratedPassword}",null));
 		loginButton.addActionListener(this);
@@ -172,15 +194,6 @@ public class SMSAuthenticator extends PresentationObjectTransitional implements 
 		
 	}
 
-	/**
-	 * <p>
-	 * TODO tryggvil describe method includeForm
-	 * </p>
-	 * @return
-	 */
-	private boolean includeForm() {
-		return true;
-	}
 
 	public void processAction(ActionEvent event) throws AbortProcessingException {
 		UIComponent button = event.getComponent();
@@ -249,5 +262,29 @@ public class SMSAuthenticator extends PresentationObjectTransitional implements 
 	
 	public void setShowView(String showView) {
 		this.showView = showView;
+	}
+
+
+	
+	public String getButtonStyleClass() {
+		return buttonStyleClass;
+	}
+
+
+	
+	public void setButtonStyleClass(String buttonStyleClass) {
+		this.buttonStyleClass = buttonStyleClass;
+	}
+
+
+	
+	public String getFormItemStyleClass() {
+		return formItemStyleClass;
+	}
+
+
+	
+	public void setFormItemStyleClass(String formItemStyleClass) {
+		this.formItemStyleClass = formItemStyleClass;
 	}
 }

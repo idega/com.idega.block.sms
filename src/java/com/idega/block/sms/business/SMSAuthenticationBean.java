@@ -1,5 +1,6 @@
 package com.idega.block.sms.business;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Locale;
@@ -18,14 +19,19 @@ import com.idega.util.StringHandler;
 
 /**
  * <p>
- * Backing bean for the SMSAuthenticator UI Component.
+ * Backing bean for the SMSAuthenticationSettings UI Component.
  * </p>
- *  Last modified: $Date: 2006/02/02 13:15:41 $ by $Author: tryggvil $
+ *  Last modified: $Date: 2006/02/03 01:31:49 $ by $Author: tryggvil $
  * 
  * @author <a href="mailto:tryggvil@idega.com">tryggvil</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
-public class SMSAuthenticationBean {
+public class SMSAuthenticationBean implements Serializable{
+
+	/**
+	 * Comment for <code>serialVersionUID</code>
+	 */
+	private static final long serialVersionUID = -6957179938596063941L;
 
 	public static final String BEAN_ID="SMSAuthenticationBean";
 	

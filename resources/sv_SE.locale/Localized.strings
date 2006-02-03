@@ -1,6 +1,10 @@
+allowSMS=Jag vill ha m\u00F6jlighet att logga in med ett eng\u00E5ngsl\u00F6senord
+confirm_password=Bekr\u00E4fta l\u00F6senord\:
 generate_onetime_password=H\u00E4mta eng\u00E5ngsl\u00F6senord
 login=Logga in
-password=L\u00F6senord
-personalId=Personnummer
+mobileNumber=Mobiltelefon\:
+password=L\u00F6senord\:
+personalId=Personnummer\:
+save=Spara inst\u00E4llningar
 type_in_your_one_time_password=Skriv in ditt eng\u00E5ngsl\u00F6senord
 user_sms_message=Ditt engangslosenord ar\: {0}

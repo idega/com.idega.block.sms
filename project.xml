@@ -29,6 +29,15 @@
           <eclipse.dependency>true</eclipse.dependency>
       </properties>
     </dependency>
+    
+    <!-- the UISaveState component is used from tomahawk -->
+        <dependency>
+      <groupId>myfaces</groupId>
+      <artifactId>myfaces-tomahawk</artifactId>
+      <version>1.1.0</version>
+      <type>jar</type>
+      <url>http://www.myfaces.org/</url>
+    </dependency>
   </dependencies>
 </project>
 
