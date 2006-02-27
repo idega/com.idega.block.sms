@@ -4,12 +4,17 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Locale;
+import javax.ejb.FinderException;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 import com.idega.block.sms.presentation.SMSAuthenticator;
 import com.idega.business.IBOLookup;
 import com.idega.core.accesscontrol.business.LoginBusinessBean;
+import com.idega.core.accesscontrol.data.LoginTable;
+import com.idega.core.accesscontrol.data.LoginTableHome;
 import com.idega.core.contact.data.Phone;
 import com.idega.core.contact.data.PhoneType;
+import com.idega.data.IDOLookup;
 import com.idega.idegaweb.IWBundle;
 import com.idega.idegaweb.IWResourceBundle;
 import com.idega.presentation.IWContext;
@@ -21,10 +26,10 @@ import com.idega.util.StringHandler;
  * <p>
  * Backing bean for the SMSAuthenticationSettings UI Component.
  * </p>
- *  Last modified: $Date: 2006/02/03 01:31:49 $ by $Author: tryggvil $
+ *  Last modified: $Date: 2006/02/27 23:24:47 $ by $Author: tryggvil $
  * 
  * @author <a href="mailto:tryggvil@idega.com">tryggvil</a>
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 public class SMSAuthenticationBean implements Serializable{
 
@@ -34,6 +39,8 @@ public class SMSAuthenticationBean implements Serializable{
 	private static final long serialVersionUID = -6957179938596063941L;
 
 	public static final String BEAN_ID="SMSAuthenticationBean";
+	
+	static final String SMS_LOGIN_TYPE="sms";
 	
 	private String userPersonalId;
 	private String password;
@@ -104,7 +111,9 @@ public class SMSAuthenticationBean implements Serializable{
 		
 		if(validation){
 			try {
-				loginBean.logInByPersonalID(iwc,getUserPersonalId());
+				String userName=null;
+				HttpServletRequest request = iwc.getRequest();
+				loginBean.logInByPersonalID(request,getUserPersonalId(),userName,getPassword(),SMS_LOGIN_TYPE);
 			}
 			catch (Exception e) {
 				e.printStackTrace();
@@ -140,19 +149,37 @@ public class SMSAuthenticationBean implements Serializable{
 		
 		IWBundle bundle = iwc.getIWMainApplication().getBundle(SMSAuthenticator.IW_BUNDLE_IDENTIFIER);
 		IWResourceBundle iwrb = bundle.getResourceBundle(locale);
+		HttpServletRequest request = iwc.getRequest();
 		
 		try {
-			if(user==null){
+			//if(user==null){
 				UserBusiness userbusiness = (UserBusiness) IBOLookup.getServiceInstance(iwc,UserBusiness.class);
 				
 				user = userbusiness.getUser(getUserPersonalId());
 				if(user!=null){
-					userCredentialsMatch=true;
 				}
 				else{
-					userCredentialsMatch=false;
+					return false;
 				}
-			}
+				
+				LoginTableHome ltHome = (LoginTableHome)IDOLookup.getHome(LoginTable.class);
+				LoginBusinessBean loginBean = LoginBusinessBean.getLoginBusinessBean(request);
+				try{
+					LoginTable loginTable = ltHome.findByUserAndType(user,SMS_LOGIN_TYPE);
+					if(loginBean.verifyPassword(loginTable,getPassword())){
+						userCredentialsMatch=true;
+					}
+					else{
+						userCredentialsMatch=false;
+						return false;
+					}
+				}
+				catch(FinderException fe){
+					userCredentialsMatch=false;
+					return false;
+				}
+				
+			//}
 		}
 		catch(Exception e){
 			e.printStackTrace();
