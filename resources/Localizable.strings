@@ -8,3 +8,7 @@ personalId=personalId
 save=save
 type_in_your_one_time_password=type_in_your_one_time_password
 user_sms_message=Your one-time-password is\: {0}
+personalid_not_correct=Personal ID number is not correct
+password_not_correct=Incorrect password
+one_time_password_not_correct=Incorrect one time password
+sms_auth_not_allowed=SMS authentication is not allowed

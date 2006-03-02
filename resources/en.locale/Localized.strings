@@ -1,2 +1,6 @@
 generate_onetime_password=Get one-time password
 login=Login
+personalid_not_correct=Personal ID number is not correct
+password_not_correct=Incorrect password
+one_time_password_not_correct=Incorrect one time password
+sms_auth_not_allowed=SMS authentication is not allowed

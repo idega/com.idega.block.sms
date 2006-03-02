@@ -8,3 +8,7 @@ personalId=Personnummer\:
 save=Spara inst\u00E4llningar
 type_in_your_one_time_password=Skriv in ditt eng\u00E5ngsl\u00F6senord
 user_sms_message=Ditt engangslosenord ar\: {0}
+personalid_not_correct=Personal ID number is not correct
+password_not_correct=Incorrect password
+one_time_password_not_correct=Incorrect one time password
+sms_auth_not_allowed=SMS authentication is not allowed
