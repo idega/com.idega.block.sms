@@ -1,5 +1,5 @@
 /*
- * $Id: PersonalIdValidator.java,v 1.1 2006/02/02 13:15:41 tryggvil Exp $
+ * $Id: PersonalIdValidator.java,v 1.2 2006/03/02 14:53:22 mariso Exp $
  * Created on 2.2.2006 in project com.idega.block.sms
  *
  * Copyright (C) 2006 Idega Software hf. All Rights Reserved.
@@ -14,6 +14,12 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
+import com.idega.block.sms.presentation.SMSAuthenticationSettings;
+import com.idega.business.IBOLookup;
+import com.idega.idegaweb.IWBundle;
+import com.idega.presentation.IWContext;
+import com.idega.user.business.UserBusiness;
+import com.idega.user.data.User;
 
 
 public class PersonalIdValidator implements Validator {
@@ -40,21 +46,26 @@ public class PersonalIdValidator implements Validator {
             Object args[] = {
                 value.toString()
             };
-            //throw new ValidatorException(MessageUtils.getMessage(FacesMessage.SEVERITY_ERROR, "org.apache.myfaces.Email.INVALID", args));
-            throw new ValidatorException(new FacesMessage("Pid invalid"));
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            IWBundle iwb = IWContext.getIWContext(ctx).getIWMainApplication().getBundle(SMSAuthenticationSettings.IW_BUNDLE_IDENTIFIER);            
+            throw new ValidatorException(new FacesMessage(iwb.getLocalizedString("password_not_correct",IWContext.getIWContext(ctx).getCurrentLocale())));
         } else
         {
             return;
         }
     }
 
-    private boolean isPersonalId(String value) {
-    		if(value.equals("")){
-    			return false;
-    		}
-    		else{
-    			return true;
-    		}
+    private boolean isPersonalId(String value) 
+    {
+        try
+        {
+            UserBusiness userbusiness = (UserBusiness) IBOLookup.getServiceInstance(IWContext.getInstance(),UserBusiness.class);        
+            User user = userbusiness.getUser(value.trim());
+            return (user!=null);
+        } catch (Exception ex)
+        {
+            return false;
+        }
 	}
 
 	public static final String VALIDATOR_ID = "se.idega.validator.PersonalId";

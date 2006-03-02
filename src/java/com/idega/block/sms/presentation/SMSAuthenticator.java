@@ -1,5 +1,5 @@
 /*
- * $Id: SMSAuthenticator.java,v 1.3 2006/02/03 01:31:49 tryggvil Exp $
+ * $Id: SMSAuthenticator.java,v 1.4 2006/03/02 14:53:22 mariso Exp $
  * Created on 23.1.2006 in project com.idega.block.sms
  *
  * Copyright (C) 2006 Idega Software hf. All Rights Reserved.
@@ -10,6 +10,8 @@
 package com.idega.block.sms.presentation;
 
 import java.io.IOException;
+import java.util.Locale;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.html.HtmlCommandButton;
 import javax.faces.component.html.HtmlForm;
@@ -42,10 +44,10 @@ import com.idega.util.FacesUtil;
  * by SMS to the users registered mobile phone number and authenticating
  * the user into the system if it is valid.
  * </p>
- *  Last modified: $Date: 2006/02/03 01:31:49 $ by $Author: tryggvil $
+ *  Last modified: $Date: 2006/03/02 14:53:22 $ by $Author: mariso $
  * 
  * @author <a href="mailto:tryggvil@idega.com">Tryggvi Larusson</a>
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
 public class SMSAuthenticator extends PresentationObjectTransitional implements ActionListener {
 
@@ -119,9 +121,9 @@ public class SMSAuthenticator extends PresentationObjectTransitional implements 
 		personalIdLabel.getChildren().add(personalIdText);
 		HtmlInputText personalIdInput = new HtmlInputText();
 		Validator pidValidator = new PersonalIdValidator();
-		Validator lengthValidator = new LengthValidator(12);
+		//Validator lengthValidator = new LengthValidator(12);
 		personalIdInput.addValidator(pidValidator);
-		personalIdInput.addValidator(lengthValidator);
+		//personalIdInput.addValidator(lengthValidator);
 		personalIdInput.setValueBinding("value",context.getApplication().createValueBinding("#{"+SMSAuthenticationBean.BEAN_ID+".userPersonalId}"));
 		personalIdLabel.setFor(personalIdInput);
 		Layer personalIdDiv = new Layer();
@@ -207,7 +209,12 @@ public class SMSAuthenticator extends PresentationObjectTransitional implements 
 			if(comp!=null){
 				if(bean.isUserCredentialsMatch()){
 					comp.setShowView(VIEW_ENTER_GENERATED_PASSWORD);
-				}
+				} else
+                {
+                    FacesContext ctx = FacesContext.getCurrentInstance();
+                    IWBundle iwb = IWContext.getIWContext(ctx).getIWMainApplication().getBundle(IW_BUNDLE_IDENTIFIER);
+                    ctx.addMessage(null, new FacesMessage(iwb.getLocalizedString("password_not_correct",IWContext.getIWContext(ctx).getCurrentLocale())));                                         
+                }
 			}
 		}
 		else if(button.getId().equals(ACTION_LOGIN)){
@@ -218,7 +225,12 @@ public class SMSAuthenticator extends PresentationObjectTransitional implements 
 					Page page = comp.getParentPage();
 					page.setToRedirect(url);
 				}
-			}
+			} else
+            {
+                FacesContext ctx = FacesContext.getCurrentInstance();
+                IWBundle iwb = IWContext.getIWContext(ctx).getIWMainApplication().getBundle(IW_BUNDLE_IDENTIFIER);
+                ctx.addMessage(null, new FacesMessage(iwb.getLocalizedString("one_time_password_not_correct",IWContext.getIWContext(ctx).getCurrentLocale())));                
+            }
 		}
 		
 	}

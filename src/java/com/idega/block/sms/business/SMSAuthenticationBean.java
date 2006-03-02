@@ -26,10 +26,10 @@ import com.idega.util.StringHandler;
  * <p>
  * Backing bean for the SMSAuthenticationSettings UI Component.
  * </p>
- *  Last modified: $Date: 2006/02/27 23:24:47 $ by $Author: tryggvil $
+ *  Last modified: $Date: 2006/03/02 14:53:22 $ by $Author: mariso $
  * 
  * @author <a href="mailto:tryggvil@idega.com">tryggvil</a>
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
 public class SMSAuthenticationBean implements Serializable{
 
@@ -55,7 +55,7 @@ public class SMSAuthenticationBean implements Serializable{
 	}
 
 	public void setUserPersonalId(String userPersonalId) {
-		this.userPersonalId = userPersonalId;
+		this.userPersonalId = userPersonalId.trim();
 	}
 
 	public String getPassword() {
