@@ -1,5 +1,5 @@
 /*
- * $Id: DefaultSMSMessage.java,v 1.1 2006/01/25 14:27:54 tryggvil Exp $
+ * $Id: DefaultSMSMessage.java,v 1.2 2006/04/22 09:14:41 laddi Exp $
  * Created on 30.11.2005 in project com.idega.block.sms
  *
  * Copyright (C) 2005 Idega Software hf. All Rights Reserved.
@@ -14,10 +14,10 @@ package com.idega.block.sms.business;
  * <p>
  * Default implementation of the SMSMessage interface.
  * </p>
- *  Last modified: $Date: 2006/01/25 14:27:54 $ by $Author: tryggvil $
+ *  Last modified: $Date: 2006/04/22 09:14:41 $ by $Author: laddi $
  * 
  * @author <a href="mailto:tryggvil@idega.com">tryggvil</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class DefaultSMSMessage implements SMSMessage {
 
@@ -37,7 +37,7 @@ public class DefaultSMSMessage implements SMSMessage {
 	 * @return Returns the message.
 	 */
 	public String getMessage() {
-		return message;
+		return this.message;
 	}
 
 	
@@ -53,7 +53,7 @@ public class DefaultSMSMessage implements SMSMessage {
 	 * @return Returns the phoneNumber.
 	 */
 	public String getPhoneNumber() {
-		return phoneNumber;
+		return this.phoneNumber;
 	}
 
 	

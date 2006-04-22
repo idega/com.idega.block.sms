@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Iterator;
 import javax.ejb.FinderException;
-import com.idega.core.accesscontrol.business.LoginBusinessBean;
 import com.idega.core.accesscontrol.data.LoginTable;
 import com.idega.core.accesscontrol.data.LoginTableHome;
 import com.idega.core.contact.data.Phone;
@@ -20,10 +19,10 @@ import com.idega.util.IWTimestamp;
  * <p>
  * Backing bean for the SMSAuthenticator UI Component.
  * </p>
- *  Last modified: $Date: 2006/02/27 23:24:47 $ by $Author: tryggvil $
+ *  Last modified: $Date: 2006/04/22 09:14:41 $ by $Author: laddi $
  * 
  * @author <a href="mailto:tryggvil@idega.com">tryggvil</a>
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 public class SMSAuthenticationSettingsBean implements Serializable {
 
@@ -60,8 +59,8 @@ public class SMSAuthenticationSettingsBean implements Serializable {
 				Collection phones = getUser().getPhones(Integer.toString(PhoneType.MOBILE_PHONE_ID));
 				for (Iterator iter = phones.iterator(); iter.hasNext();) {
 					Phone phone = (Phone) iter.next();
-					mobileNumber = phone.getNumber();
-					if(mobileNumber!=null&&!mobileNumber.equals("")){
+					this.mobileNumber = phone.getNumber();
+					if(this.mobileNumber!=null&&!this.mobileNumber.equals("")){
 						setAllowSMSAuthenticaton(true);
 					}
 				}
@@ -128,13 +127,13 @@ public class SMSAuthenticationSettingsBean implements Serializable {
 	public void reload(){
 		//user=null;
 		this.password=null;
-		confirmPassword=null;
-		mobileNumber=null;
+		this.confirmPassword=null;
+		this.mobileNumber=null;
 		load();
 	}
 	
 	public String getMobileNumber() {
-		return mobileNumber;
+		return this.mobileNumber;
 	}
 
 
@@ -146,7 +145,7 @@ public class SMSAuthenticationSettingsBean implements Serializable {
 
 	
 	public String getPassword() {
-		return password;
+		return this.password;
 	}
 
 
@@ -158,7 +157,7 @@ public class SMSAuthenticationSettingsBean implements Serializable {
 
 	
 	public String getConfirmPassword() {
-		return confirmPassword;
+		return this.confirmPassword;
 	}
 
 
@@ -169,7 +168,7 @@ public class SMSAuthenticationSettingsBean implements Serializable {
 	
 
 	public boolean isAllowSMSAuthenticaton() {
-		return allowSMSAuthenticaton;
+		return this.allowSMSAuthenticaton;
 	}
 
 	public void setAllowSMSAuthenticaton(boolean allowSMSAuthenticaton) {

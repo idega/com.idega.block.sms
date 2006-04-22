@@ -1,5 +1,5 @@
 /*
- * $Id: SMSAuthenticator.java,v 1.4 2006/03/02 14:53:22 mariso Exp $
+ * $Id: SMSAuthenticator.java,v 1.5 2006/04/22 09:14:41 laddi Exp $
  * Created on 23.1.2006 in project com.idega.block.sms
  *
  * Copyright (C) 2006 Idega Software hf. All Rights Reserved.
@@ -10,7 +10,6 @@
 package com.idega.block.sms.presentation;
 
 import java.io.IOException;
-import java.util.Locale;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.html.HtmlCommandButton;
@@ -24,7 +23,6 @@ import javax.faces.el.ValueBinding;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
-import javax.faces.validator.LengthValidator;
 import javax.faces.validator.Validator;
 import org.apache.myfaces.custom.savestate.UISaveState;
 import com.idega.block.sms.business.PersonalIdValidator;
@@ -44,10 +42,10 @@ import com.idega.util.FacesUtil;
  * by SMS to the users registered mobile phone number and authenticating
  * the user into the system if it is valid.
  * </p>
- *  Last modified: $Date: 2006/03/02 14:53:22 $ by $Author: mariso $
+ *  Last modified: $Date: 2006/04/22 09:14:41 $ by $Author: laddi $
  * 
  * @author <a href="mailto:tryggvil@idega.com">Tryggvi Larusson</a>
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  */
 public class SMSAuthenticator extends PresentationObjectTransitional implements ActionListener {
 
@@ -66,7 +64,7 @@ public class SMSAuthenticator extends PresentationObjectTransitional implements 
 	String buttonStyleClass="button";
 	
 	public String getRedirectUrlOnLogon() {
-		return redirectUrlOnLogon;
+		return this.redirectUrlOnLogon;
 	}
 
 	
@@ -127,7 +125,7 @@ public class SMSAuthenticator extends PresentationObjectTransitional implements 
 		personalIdInput.setValueBinding("value",context.getApplication().createValueBinding("#{"+SMSAuthenticationBean.BEAN_ID+".userPersonalId}"));
 		personalIdLabel.setFor(personalIdInput);
 		Layer personalIdDiv = new Layer();
-		personalIdDiv.setStyleClass(formItemStyleClass);
+		personalIdDiv.setStyleClass(this.formItemStyleClass);
 		container.getChildren().add(personalIdDiv);
 		personalIdDiv.getChildren().add(personalIdLabel);
 		personalIdDiv.getChildren().add(personalIdInput);
@@ -141,13 +139,13 @@ public class SMSAuthenticator extends PresentationObjectTransitional implements 
 		
 		passwordLabel.setFor(passwordInput);
 		Layer passwordDiv = new Layer();
-		passwordDiv.setStyleClass(formItemStyleClass);
+		passwordDiv.setStyleClass(this.formItemStyleClass);
 		container.getChildren().add(passwordDiv);
 		passwordDiv.getChildren().add(passwordLabel);
 		passwordDiv.getChildren().add(passwordInput);
 		
 		HtmlCommandButton button = new HtmlCommandButton();
-		button.setStyleClass(buttonStyleClass);
+		button.setStyleClass(this.buttonStyleClass);
 		button.setId(ACTION_GENERATE_PASSWORD);
 		button.setAction(context.getApplication().createMethodBinding("#{"+SMSAuthenticationBean.BEAN_ID+".generateOneTimePassword}",null));
 		button.addActionListener(this);
@@ -180,13 +178,13 @@ public class SMSAuthenticator extends PresentationObjectTransitional implements 
 		
 		passwordLabel.setFor(generatedPasswordInput);
 		Layer generatedPasswordDiv = new Layer();
-		generatedPasswordDiv.setStyleClass(formItemStyleClass);
+		generatedPasswordDiv.setStyleClass(this.formItemStyleClass);
 		container.getChildren().add(generatedPasswordDiv);
 		generatedPasswordDiv.getChildren().add(generatedPasswordLabel);
 		generatedPasswordDiv.getChildren().add(generatedPasswordInput);
 		
 		HtmlCommandButton loginButton = new HtmlCommandButton();
-		loginButton.setStyle(buttonStyleClass);
+		loginButton.setStyle(this.buttonStyleClass);
 		loginButton.setId(ACTION_LOGIN);
 		//loginButton.setAction(context.getApplication().createMethodBinding("#{"+SMSAuthenticationBean.BEAN_ID+".validateGeneratedPassword}",null));
 		loginButton.addActionListener(this);
@@ -250,8 +248,8 @@ public class SMSAuthenticator extends PresentationObjectTransitional implements 
 	public Object saveState(FacesContext ctx) {
 		Object values[] = new Object[3];
 		values[0] = super.saveState(ctx);
-		values[1] = showView;
-		values[2] = redirectUrlOnLogon;
+		values[1] = this.showView;
+		values[2] = this.redirectUrlOnLogon;
 		return values;
 	}
 
@@ -262,13 +260,13 @@ public class SMSAuthenticator extends PresentationObjectTransitional implements 
 	public void restoreState(FacesContext ctx, Object state) {
 		Object values[] = (Object[]) state;
 		super.restoreState(ctx, values[0]);
-		showView=(String)values[1];
-		redirectUrlOnLogon=(String)values[2];
+		this.showView=(String)values[1];
+		this.redirectUrlOnLogon=(String)values[2];
 	}
 
 	
 	public String getShowView() {
-		return showView;
+		return this.showView;
 	}
 
 	
@@ -279,7 +277,7 @@ public class SMSAuthenticator extends PresentationObjectTransitional implements 
 
 	
 	public String getButtonStyleClass() {
-		return buttonStyleClass;
+		return this.buttonStyleClass;
 	}
 
 
@@ -291,7 +289,7 @@ public class SMSAuthenticator extends PresentationObjectTransitional implements 
 
 	
 	public String getFormItemStyleClass() {
-		return formItemStyleClass;
+		return this.formItemStyleClass;
 	}
 
 

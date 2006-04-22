@@ -1,5 +1,5 @@
 /*
- * $Id: SMSAuthenticationSettings.java,v 1.1 2006/02/03 01:31:49 tryggvil Exp $
+ * $Id: SMSAuthenticationSettings.java,v 1.2 2006/04/22 09:14:41 laddi Exp $
  * Created on 23.1.2006 in project com.idega.block.sms
  *
  * Copyright (C) 2006 Idega Software hf. All Rights Reserved.
@@ -26,7 +26,6 @@ import javax.faces.event.ActionListener;
 import org.apache.myfaces.custom.savestate.UISaveState;
 import com.idega.block.sms.business.SMSAuthenticationSettingsBean;
 import com.idega.idegaweb.IWBundle;
-import com.idega.idegaweb.IWResourceBundle;
 import com.idega.presentation.IWContext;
 import com.idega.presentation.Layer;
 import com.idega.presentation.PresentationObjectTransitional;
@@ -40,10 +39,10 @@ import com.idega.util.FacesUtil;
  * security password for the current user so that he can log in 
  * by a temporary password sent by SMS.
  * </p>
- *  Last modified: $Date: 2006/02/03 01:31:49 $ by $Author: tryggvil $
+ *  Last modified: $Date: 2006/04/22 09:14:41 $ by $Author: laddi $
  * 
  * @author <a href="mailto:tryggvil@idega.com">Tryggvi Larusson</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class SMSAuthenticationSettings extends PresentationObjectTransitional implements ActionListener {
 
@@ -103,7 +102,7 @@ public class SMSAuthenticationSettings extends PresentationObjectTransitional im
 		allowSMSInput.setValueBinding("value",context.getApplication().createValueBinding("#{"+SMSAuthenticationSettingsBean.BEAN_ID+".allowSMSAuthenticaton}"));
 		allowSMSLabel.setFor(allowSMSInput);
 		Layer allowSMSDiv = new Layer();
-		allowSMSDiv.setStyleClass(formItemStyleClass);
+		allowSMSDiv.setStyleClass(this.formItemStyleClass);
 		container.getChildren().add(allowSMSDiv);
 		allowSMSDiv.getChildren().add(allowSMSLabel);
 		allowSMSDiv.getChildren().add(allowSMSInput);
@@ -117,7 +116,7 @@ public class SMSAuthenticationSettings extends PresentationObjectTransitional im
 		mobileInput.setValueBinding("value",context.getApplication().createValueBinding("#{"+SMSAuthenticationSettingsBean.BEAN_ID+".mobileNumber}"));
 		mobileLabel.setFor(mobileInput);
 		Layer mobileDiv = new Layer();
-		mobileDiv.setStyleClass(formItemStyleClass);
+		mobileDiv.setStyleClass(this.formItemStyleClass);
 		container.getChildren().add(mobileDiv);
 		mobileDiv.getChildren().add(mobileLabel);
 		mobileDiv.getChildren().add(mobileInput);
@@ -129,7 +128,7 @@ public class SMSAuthenticationSettings extends PresentationObjectTransitional im
 		passwordInput.setValueBinding("value",context.getApplication().createValueBinding("#{"+SMSAuthenticationSettingsBean.BEAN_ID+".password}"));
 		passwordLabel.setFor(passwordInput);
 		Layer passwordDiv = new Layer();
-		passwordDiv.setStyleClass(formItemStyleClass);
+		passwordDiv.setStyleClass(this.formItemStyleClass);
 		container.getChildren().add(passwordDiv);
 		passwordDiv.getChildren().add(passwordLabel);
 		passwordDiv.getChildren().add(passwordInput);
@@ -141,13 +140,13 @@ public class SMSAuthenticationSettings extends PresentationObjectTransitional im
 		confirmPasswordInput.setValueBinding("value",context.getApplication().createValueBinding("#{"+SMSAuthenticationSettingsBean.BEAN_ID+".confirmPassword}"));
 		confirmPasswordLabel.setFor(confirmPasswordInput);
 		Layer confirmPasswordDiv = new Layer();
-		confirmPasswordDiv.setStyleClass(formItemStyleClass);
+		confirmPasswordDiv.setStyleClass(this.formItemStyleClass);
 		container.getChildren().add(confirmPasswordDiv);
 		confirmPasswordDiv.getChildren().add(confirmPasswordLabel);
 		confirmPasswordDiv.getChildren().add(confirmPasswordInput);
 		
 		HtmlCommandButton button = new HtmlCommandButton();
-		button.setStyleClass(buttonStyleClass);
+		button.setStyleClass(this.buttonStyleClass);
 		button.setId(ACTION_SAVE);
 		//button.setAction(context.getApplication().createMethodBinding("#{"+SMSAuthenticationBean.BEAN_ID+".generateOneTimePassword}",null));
 		button.addActionListener(this);
@@ -198,7 +197,7 @@ public class SMSAuthenticationSettings extends PresentationObjectTransitional im
 
 	
 	public String getButtonStyleClass() {
-		return buttonStyleClass;
+		return this.buttonStyleClass;
 	}
 
 	
@@ -208,7 +207,7 @@ public class SMSAuthenticationSettings extends PresentationObjectTransitional im
 
 	
 	public String getFormItemStyleClass() {
-		return formItemStyleClass;
+		return this.formItemStyleClass;
 	}
 
 	

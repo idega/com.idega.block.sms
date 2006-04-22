@@ -1,5 +1,5 @@
 /*
- * $Id: ASPSMSProvider.java,v 1.2 2006/02/02 13:15:41 tryggvil Exp $ Created on 30.11.2005
+ * $Id: ASPSMSProvider.java,v 1.3 2006/04/22 09:14:41 laddi Exp $ Created on 30.11.2005
  * in project com.idega.block.sms
  * 
  * Copyright (C) 2005 Idega Software hf. All Rights Reserved.
@@ -26,10 +26,10 @@ import com.idega.idegaweb.IWMainApplication;
  * <code>com.aspsms.password</code> and <code>com.aspsms.originator</code>.
  * 
  * </p>
- * Last modified: $Date: 2006/02/02 13:15:41 $ by $Author: tryggvil $
+ * Last modified: $Date: 2006/04/22 09:14:41 $ by $Author: laddi $
  * 
  * @author <a href="mailto:tryggvil@idega.com">tryggvil</a>
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 public class ASPSMSProvider implements SMSProvider {
 
@@ -59,7 +59,7 @@ public class ASPSMSProvider implements SMSProvider {
 			initialize(iwma);
 		}
 		else{
-			log.warning("IWMainApplication instance is null, cannot read properties");
+			this.log.warning("IWMainApplication instance is null, cannot read properties");
 		}
 	}
 
@@ -108,7 +108,7 @@ public class ASPSMSProvider implements SMSProvider {
 		//InetAddress inetAddr = null;
 		String xmlResult = "";
 		try {
-			URL aspsmsURL = new URL(serviceUrl);
+			URL aspsmsURL = new URL(this.serviceUrl);
 			URLConnection aspsmsCon = aspsmsURL.openConnection();
 			aspsmsCon.setRequestProperty("Content-Type", "text/xml");
 			aspsmsCon.setDoOutput(true);
@@ -160,7 +160,7 @@ public class ASPSMSProvider implements SMSProvider {
 	 * @return Returns the originator.
 	 */
 	public String getOriginator() {
-		return originator;
+		return this.originator;
 	}
 
 	
@@ -176,10 +176,10 @@ public class ASPSMSProvider implements SMSProvider {
 	 * @return Returns the password.
 	 */
 	public String getPassword() {
-		if(password==null){
+		if(this.password==null){
 			throw new RuntimeException("No password set");
 		}
-		return password;
+		return this.password;
 	}
 
 	
@@ -195,10 +195,10 @@ public class ASPSMSProvider implements SMSProvider {
 	 * @return Returns the userkey.
 	 */
 	public String getUserkey() {
-		if(userkey==null){
+		if(this.userkey==null){
 			throw new RuntimeException("No userkey set");
 		}
-		return userkey;
+		return this.userkey;
 	}
 
 	
@@ -214,7 +214,7 @@ public class ASPSMSProvider implements SMSProvider {
 	 * @return Returns the serviceUrl.
 	 */
 	public String getServiceUrl() {
-		return serviceUrl;
+		return this.serviceUrl;
 	}
 
 	

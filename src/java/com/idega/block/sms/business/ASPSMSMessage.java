@@ -1,5 +1,5 @@
 /*
- * $Id: ASPSMSMessage.java,v 1.1 2006/01/25 14:27:54 tryggvil Exp $ Created on 30.11.2005
+ * $Id: ASPSMSMessage.java,v 1.2 2006/04/22 09:14:41 laddi Exp $ Created on 30.11.2005
  * in project com.idega.block.sms
  * 
  * Copyright (C) 2005 Idega Software hf. All Rights Reserved.
@@ -14,10 +14,10 @@ package com.idega.block.sms.business;
  * This is the SMSMessage implementation for the http://www.aspsms.com provider
  * and used by the ASPSMSProvider implementation.
  * </p>
- * Last modified: $Date: 2006/01/25 14:27:54 $ by $Author: tryggvil $
+ * Last modified: $Date: 2006/04/22 09:14:41 $ by $Author: laddi $
  * 
  * @author <a href="mailto:tryggvil@idega.com">tryggvil</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class ASPSMSMessage extends DefaultSMSMessage{
 
@@ -54,7 +54,7 @@ public class ASPSMSMessage extends DefaultSMSMessage{
 	 * @return Returns the deliverySuccessfulURL.
 	 */
 	public String getDeliverySuccessfulURL() {
-		return deliverySuccessfulURL;
+		return this.deliverySuccessfulURL;
 	}
 
 	/**
@@ -69,7 +69,7 @@ public class ASPSMSMessage extends DefaultSMSMessage{
 	 * @return Returns the deliveryUnsuccessfulURL.
 	 */
 	public String getDeliveryUnsuccessfulURL() {
-		return deliveryUnsuccessfulURL;
+		return this.deliveryUnsuccessfulURL;
 	}
 
 	/**
@@ -84,7 +84,7 @@ public class ASPSMSMessage extends DefaultSMSMessage{
 	 * @return Returns the flashingSMS.
 	 */
 	public int getFlashingSMS() {
-		return flashingSMS;
+		return this.flashingSMS;
 	}
 
 	/**
@@ -99,7 +99,7 @@ public class ASPSMSMessage extends DefaultSMSMessage{
 	 * @return Returns the referencenumber.
 	 */
 	public int getReferencenumber() {
-		return referencenumber;
+		return this.referencenumber;
 	}
 
 	/**
@@ -114,7 +114,7 @@ public class ASPSMSMessage extends DefaultSMSMessage{
 	 * @return Returns the accountPasword.
 	 */
 	public String getAccountPasword() {
-		return accountPasword;
+		return this.accountPasword;
 	}
 
 	/**
@@ -129,7 +129,7 @@ public class ASPSMSMessage extends DefaultSMSMessage{
 	 * @return Returns the accountUserKey.
 	 */
 	public String getAccountUserKey() {
-		return accountUserKey;
+		return this.accountUserKey;
 	}
 
 	/**
@@ -144,7 +144,7 @@ public class ASPSMSMessage extends DefaultSMSMessage{
 	 * @return Returns the messageOriginator.
 	 */
 	public String getMessageOriginator() {
-		return messageOriginator;
+		return this.messageOriginator;
 	}
 
 	/**
