@@ -6,7 +6,7 @@
   <name>SMS Block</name>
   <groupId>bundles</groupId>
   <artifactId>com.idega.block.sms</artifactId>
-  <currentVersion>1.0-SNAPSHOT</currentVersion>
+  <currentVersion>3.1.0</currentVersion>
   <inceptionYear>2005</inceptionYear>
   <shortDescription>Module for sending SMS messages to mobile telephones</shortDescription>
   <developers>
@@ -21,8 +21,7 @@
     <dependency>
       <groupId>bundles</groupId>
       <artifactId>com.idega.core</artifactId>
-      <!--version>3.0.6</version-->
-      <version>SNAPSHOT</version>
+      <version>3.1.0</version>
       <type>jar</type>
       <url>http://www.idega.com/</url>
       <properties>
@@ -34,7 +33,7 @@
         <dependency>
       <groupId>myfaces</groupId>
       <artifactId>myfaces-tomahawk</artifactId>
-      <version>1.1.0</version>
+      <version>1.1.3</version>
       <type>jar</type>
       <url>http://www.myfaces.org/</url>
     </dependency>
